@@ -18,9 +18,14 @@ body {
 }
 
 .display {
+    display: flex;
     background-color: grey;
+    max-width: 300px;
     height: 100px;
     border-radius: 5px;
+    align-items: center;
+    justify-content: right;
+    font-size: 50px;
 }
 
 .buttonContainer{
@@ -29,7 +34,6 @@ body {
     justify-content: space-between;
     padding-top: 10px;
     flex: 1;
-
 }
 
 .row {
