@@ -1,6 +1,6 @@
 let firstNum="";
 let secondNum="";
-let operator;
+let operator="";
 let currentEquation="";
 let firstDone = false;
 const operationRegex = new RegExp(/[\/\+\-\*]/);
@@ -21,7 +21,7 @@ function buildEquation(e) {
 
     const input = e.target.id;
 
-    //Build first number
+    //Build first number if no first number
     if(!firstDone) {
 
         if(e.target.id==="-" &&  firstNum === "") {
@@ -41,8 +41,14 @@ function buildEquation(e) {
         }
         updateDisplay(currentEquation);
     } 
-    //build second number
-    else {
+    //After an initual calculation, only allow an operator
+    else if(firstDone && operator === ""){
+        operator = e.target.id;
+        currentEquation += operator;
+        updateDisplay(currentEquation)
+    }
+    //build second number if operator exists
+    else if (firstDone && operator !== "") {
         if(e.target.id==="-" &&  secondNum === "") {
             secondNum = "-";
             currentEquation = firstNum+operator+secondNum;
@@ -54,50 +60,12 @@ function buildEquation(e) {
             //do not add another
         } else if (isEqual) {
             currentEquation = operate(operator, firstNum, secondNum);
+            refresh();
         }
         updateDisplay(currentEquation);
     }
 }
 
-
-// function addToDisplay(e){
-
-//     const buttonClasses = e.target.classList;
-//     const input = e.target.id;
-   
-
-
-//     //number buttons
-//     if (buttonClasses.contains('number') && currentEquation.length <=10) {
-//         currentEquation += input;
-//         updateDisplay(currentEquation);
-//     } 
-//     //operator buttons
-//     else if (buttonClasses.contains('operation')) {
-//         if (operationRegex.test(currentEquation)) {
-
-//         } else {
-//             currentEquation += input;
-//             updateDisplay(currentEquation);
-//         }
-//     }
-//     //equal button
-//     else if (buttonClasses.contains('equal')) {
-//         parseCalculation(currentEquation);
-//     }
-//     console.log(currentEquation);
-//     console.log(operationRegex.test(currentEquation));
-// }
-
-// function parseCalculation(equation) {
-//     // Need to rework this to allow a split even with negative numbers
-//     let [num1, num2] = equation.split(operationRegex);
-//     let operand = equation.charAt(equation.search(operationRegex));
-//     console.log(num1);
-//     console.log(num2);
-//     console.log(operand);
-//     updateDisplay(operate(operand, num1, num2));
-// }
 
 function updateDisplay(content){
     const display = document.querySelector(".display");
@@ -120,6 +88,12 @@ function multiply(num1, num2) {
 
 function divide(num1, num2) {
     return num1/num2;
+}
+
+function refresh(){
+    firstNum = currentEquation;
+    secondNum = "";
+    operator ="";
 }
 
 //Operations
