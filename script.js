@@ -1,5 +1,5 @@
-let firstNum="0";
-let secondNum="0";
+let firstNum="";
+let secondNum="";
 let operator;
 let currentEquation="";
 let firstDone = false;
@@ -16,29 +16,48 @@ function buildEquation(e) {
 
     const buttonClasses = e.target.classList;
     const isNumber = buttonClasses.contains("number");
-    const isOperator = buttonClasses.contains("operator")
-    const isEqual = buttonClasses.contain("equal");
+    const isOperator = buttonClasses.contains("operation")
+    const isEqual = buttonClasses.contains("equal");
 
     const input = e.target.id;
 
     //Build first number
     if(!firstDone) {
 
-        if(e.target.id==="-" &&  firstnum === "0") {
+        if(e.target.id==="-" &&  firstNum === "") {
             firstNum = "-";
+            currentEquation = firstNum;
         }
 
         if(isNumber) {
             firstNum += input;
-        } else if (isOperator) {
+            currentEquation = firstNum;
+        } else if ((isOperator) && (firstNum !== "" && firstNum !=="-")) {
             operator = e.target.id;
+            currentEquation += operator;
             firstDone = true;
         } else if (isEqual) {
-            
+            //do not calculate
         }
+        updateDisplay(currentEquation);
+    } 
+    //build second number
+    else {
+        if(e.target.id==="-" &&  secondNum === "") {
+            secondNum = "-";
+            currentEquation = firstNum+operator+secondNum;
+        }
+        if(isNumber) {
+            secondNum += input;
+            currentEquation = firstNum+operator+secondNum;
+        } else if (isOperator) {
+            //do not add another
+        } else if (isEqual) {
+            currentEquation = operate(operator, firstNum, secondNum);
+        }
+        updateDisplay(currentEquation);
     }
 }
-
 
 
 // function addToDisplay(e){
@@ -70,15 +89,15 @@ function buildEquation(e) {
 //     console.log(operationRegex.test(currentEquation));
 // }
 
-function parseCalculation(equation) {
-    // Need to rework this to allow a split even with negative numbers
-    let [num1, num2] = equation.split(operationRegex);
-    let operand = equation.charAt(equation.search(operationRegex));
-    console.log(num1);
-    console.log(num2);
-    console.log(operand);
-    updateDisplay(operate(operand, num1, num2));
-}
+// function parseCalculation(equation) {
+//     // Need to rework this to allow a split even with negative numbers
+//     let [num1, num2] = equation.split(operationRegex);
+//     let operand = equation.charAt(equation.search(operationRegex));
+//     console.log(num1);
+//     console.log(num2);
+//     console.log(operand);
+//     updateDisplay(operate(operand, num1, num2));
+// }
 
 function updateDisplay(content){
     const display = document.querySelector(".display");
@@ -87,6 +106,7 @@ function updateDisplay(content){
 
 // Basic Functions
 function add(num1, num2) {
+    
     return num1+num2;
 }
 
