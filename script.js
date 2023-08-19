@@ -42,7 +42,7 @@ function buildEquation(e) {
         updateDisplay(currentEquation);
     } 
     //After an initual calculation, only allow an operator
-    else if(firstDone && operator === ""){
+    else if(firstDone && isOperator && operator === ""){
         operator = e.target.id;
         currentEquation += operator;
         updateDisplay(currentEquation)
@@ -75,7 +75,7 @@ function updateDisplay(content){
 // Basic Functions
 function add(num1, num2) {
     
-    return num1+num2;
+    return +num1+num2;
 }
 
 function subtract(num1, num2) {
