@@ -92,7 +92,11 @@ function clear(){
 
 function updateDisplay(content){
     const display = document.querySelector(".display");
-    display.textContent = content;
+    if(content.length<=11){
+        display.textContent = content;
+    } else {
+        display.textContent = "Too Big";
+    }
 }
 
 // Basic Functions
