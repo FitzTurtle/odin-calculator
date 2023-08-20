@@ -7,12 +7,24 @@ let firstHasDecimal = false;
 let secondHasDecimal =false;
 
 const operationRegex = new RegExp(/[\/\+\-\*]/);
+const calcRegex = new RegExp(/[(0-9)\/\+\-\*]/);
 
 const buttons = document.querySelectorAll(".button");
 const clearButton = document.querySelector(".clear");
 
 buttons.forEach( (button) => button.addEventListener('click', buildEquation));
 clearButton.addEventListener('click', clear);
+
+window.addEventListener('keypress', handlePress);
+
+function handlePress(e) {
+    if(calcRegex.test(e.key)){
+    document.getElementById(e.key).click();
+    }
+    if(e.key=="Enter"){
+        document.getElementById("=").click();
+    }
+}
 
 function buildEquation(e) {
 
