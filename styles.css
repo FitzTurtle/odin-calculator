@@ -4,6 +4,9 @@ body {
     align-items: center;
 }
 
+.clear {
+    flex: 1;
+}
 
 
 /* Calc body */
@@ -38,7 +41,7 @@ body {
 
 .row {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-evenly; 
 }
 
 /* Buttons */
@@ -46,8 +49,8 @@ body {
     border-radius: 15px;
     display: flex;
     background-color: red;
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     justify-content: center;
     align-items: center;
 }

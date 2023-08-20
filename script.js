@@ -6,11 +6,12 @@ let firstDone = false;
 const operationRegex = new RegExp(/[\/\+\-\*]/);
 
 const buttons = document.querySelectorAll(".button");
+const clearButton = document.querySelector(".clear");
+
 // console.log(numButtons);
 // const opButtons = document.querySelectorAll(".button.operation");
-
 buttons.forEach( (button) => button.addEventListener('click', buildEquation));
-
+clearButton.addEventListener('click', clear);
 
 function buildEquation(e) {
 
@@ -66,6 +67,14 @@ function buildEquation(e) {
     }
 }
 
+function clear(){
+    firstNum="";
+    secondNum="";
+    operator="";
+    currentEquation="";
+    firstDone = false;
+    updateDisplay(currentEquation);
+}
 
 function updateDisplay(content){
     const display = document.querySelector(".display");
@@ -74,8 +83,11 @@ function updateDisplay(content){
 
 // Basic Functions
 function add(num1, num2) {
-    
-    return +num1+num2;
+
+    num1 = +num1;
+    num2 = +num2;
+
+    return num1+num2;
 }
 
 function subtract(num1, num2) {
