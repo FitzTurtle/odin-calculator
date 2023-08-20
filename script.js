@@ -105,22 +105,22 @@ function add(num1, num2) {
     num1 = +num1;
     num2 = +num2;
 
-    return num1+num2;
+    return roundToTwo(num1+num2);
 }
 
 function subtract(num1, num2) {
-    return num1-num2;
+    return roundToTwo(num1-num2);
 }
 
 function multiply(num1, num2) {
-    return num1*num2;
+    return roundToTwo(num1*num2);
 }
 
 function divide(num1, num2) {
     if(num2=="0"){
         return ":( div by 0";
     }
-    return num1/num2;
+    return roundToTwo(num1/num2);
 }
 
 function refresh(){
@@ -147,4 +147,8 @@ function operate(operation, num1, num2) {
             return divide(num1,num2);
             break;
     }
+}
+
+function roundToTwo (num) {
+    return Math.round(num*100)/100;
 }
