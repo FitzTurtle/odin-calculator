@@ -1,7 +1,27 @@
+
+
+html {
+    --main-color: #0a3c86; 
+    --number-color: #a8dde7;
+    --operation-color: #ab84fb;
+    --allClear-color: #b95b5f;
+    --screen-color: #b3b3b3;
+    --buttonBorder-color: #534789;
+    --calcBorder-color: #051a4c;
+
+    font-family: Tahoma, Verdana, sans-serif;
+}
+
+@font-face {
+    font-family: calculator;
+    src: url(fonts/DIGITALDREAM.ttf);
+}
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .clear {
@@ -12,26 +32,28 @@ body {
 /* Calc body */
 .calcContainer {
     display: flex;
-    background-color: blue;
+    background-color: var(--main-color);
     max-width: 300px;
     min-width: 300px;
     height: 400px;
     flex-direction: column;
     padding: 10px;
     border-radius: 10px;
+    border: 5px groove var(--calcBorder-color);
     margin-top: 50px;
 }
 
 .display {
     display: flex;
-    background-color: grey;
+    background-color: var(--screen-color);
     max-width: 300px;
     height: 60px;
     border-radius: 5px;
     align-items: center;
     justify-content: right;
-    font-size: 50px;
+    font-size: 30px;
     padding: 10px;
+    font-family: 'calculator';
     /* word-break: break-all; */
 }
 
@@ -52,10 +74,24 @@ body {
 .button {
     border-radius: 15px;
     display: flex;
-    background-color: red;
+    background-color: var(--number-color);
     width: 55px;
     height: 55px;
     justify-content: center;
     align-items: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: 4px inset var(--buttonBorder-color);
+}
+button:active {
+    border: 4px outset var(--buttonBorder-color);
 }
 
+
+.button.operation, .button.equal, .button.decimal {
+    background-color: var(--operation-color);
+}
+
+.button.clear {
+    background-color: var(--allClear-color);
+}
