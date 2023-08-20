@@ -3,13 +3,14 @@ let secondNum="";
 let operator="";
 let currentEquation="";
 let firstDone = false;
+let firstHasDecimal = false;
+let secondHasDecimal =false;
+
 const operationRegex = new RegExp(/[\/\+\-\*]/);
 
 const buttons = document.querySelectorAll(".button");
 const clearButton = document.querySelector(".clear");
 
-// console.log(numButtons);
-// const opButtons = document.querySelectorAll(".button.operation");
 buttons.forEach( (button) => button.addEventListener('click', buildEquation));
 clearButton.addEventListener('click', clear);
 
@@ -19,6 +20,7 @@ function buildEquation(e) {
     const isNumber = buttonClasses.contains("number");
     const isOperator = buttonClasses.contains("operation")
     const isEqual = buttonClasses.contains("equal");
+    const isDecimal = buttonClasses.contains("decimal");
 
     const input = e.target.id;
 
@@ -28,6 +30,11 @@ function buildEquation(e) {
         if(e.target.id==="-" &&  firstNum === "") {
             firstNum = "-";
             currentEquation = firstNum;
+        }
+        if(isDecimal && !firstHasDecimal) {
+            firstNum += ".";
+            currentEquation = firstNum;
+            firstHasDecimal=true;
         }
 
         if(isNumber) {
@@ -54,6 +61,11 @@ function buildEquation(e) {
             secondNum = "-";
             currentEquation = firstNum+operator+secondNum;
         }
+        if(isDecimal && !secondHasDecimal) {
+            secondNum += ".";
+            currentEquation =firstNum+operator+secondNum;
+            secondHasDecimal = true;
+        }
         if(isNumber) {
             secondNum += input;
             currentEquation = firstNum+operator+secondNum;
@@ -73,6 +85,8 @@ function clear(){
     operator="";
     currentEquation="";
     firstDone = false;
+    firstHasDecimal = false;
+    secondHasDecimal = false;
     updateDisplay(currentEquation);
 }
 
@@ -106,6 +120,7 @@ function refresh(){
     firstNum = currentEquation;
     secondNum = "";
     operator ="";
+    secondHasDecimal = false;
 }
 
 //Operations
