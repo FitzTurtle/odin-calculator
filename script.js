@@ -92,10 +92,10 @@ function clear(){
 
 function updateDisplay(content){
     const display = document.querySelector(".display");
-    if(content.length<=11){
+    if(content.toString().length<=11){
         display.textContent = content;
     } else {
-        display.textContent = "Too Big";
+        display.textContent = "Er: Too Big";
     }
 }
 
@@ -117,6 +117,9 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
+    if(num2=="0"){
+        return ":( div by 0";
+    }
     return num1/num2;
 }
 
